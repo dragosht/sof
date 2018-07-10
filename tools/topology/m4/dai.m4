@@ -200,4 +200,14 @@ define(`DAI_ADD',
 `DEBUG_DAI($3, $4)'
 )
 
+dnl VFE_LINK(link_name, cpu_dai_name, platform_name)
+define(`VFE_LINK',
+`	tokens "sof_vfe_tokens"'
+`	tuples."string" {'
+`		SOF_TKN_VFE_LINK_NAME'		STR($1)
+`		SOF_TKN_VFE_CPU_DAI_NAME'	$2
+`		SOF_TKN_VFE_PLATFORM_NAME'	STR($3)
+`	}'
+)
+
 divert(0)dnl
