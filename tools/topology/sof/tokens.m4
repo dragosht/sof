@@ -117,3 +117,9 @@ SectionVendorTokens."sof_led_tokens" {
 	SOF_TKN_MUTE_LED_USE			"1300"
 	SOF_TKN_MUTE_LED_DIRECTION		"1301"
 }
+
+SectionVendorTokens."sof_vfe_tokens" {
+	SOF_TKN_VFE_LINK_NAME			"1500"
+	SOF_TKN_VFE_CPU_DAI_NAME		"1501"
+	SOF_TKN_VFE_PLATFORM_NAME		"1502"
+}
