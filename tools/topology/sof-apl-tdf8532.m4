@@ -37,7 +37,7 @@ dnl     time_domain, sched_comp)
 # Low Latency playback pipeline 1 on PCM 0 using max 4 channels of s32le.
 # 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
-	1, 0, 4, s32le,
+	1, 0, 2, s32le,
 	1000, 0, 0,
 	48000, 48000, 48000)
 
@@ -227,7 +227,7 @@ DAI_CONFIG(SSP, 4, 4, SSP4-Codec,
 	   SSP_CONFIG(DSP_B, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 12288000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
-		      SSP_TDM(8, 32, 15, 15),
+		      SSP_TDM(2, 32, 15, 15),
 		      SSP_CONFIG_DATA(SSP, 4, 32)))
 
 DAI_CONFIG(SSP, 5, 5, SSP5-Codec,
