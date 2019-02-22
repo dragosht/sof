@@ -771,6 +771,8 @@ static inline int ssp_set_config(struct dai *dai,
 		  "ssioc = 0x%08x",
 		  sscr2, sspsp2, sscr3, ssioc);
 	trace_ssp("ssp_set_config(), ssrsa = 0x%08x, sstsa = 0x%08x", ssrsa, sstsa);
+	trace_ssp("ssp_set_config(), mdivc = 0x%08x, mdivr = 0x%08x", mdivc, mdivr);
+	trace_ssp("ssp_set_config(), i2s_m = 0x%08x, i2s_n = 0x%08x", i2s_m, i2s_n);
 
 	/* TODO: move this into M/N driver */
 	mn_reg_write(0x0, mdivc);
