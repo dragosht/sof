@@ -28,6 +28,18 @@ include(`platform/intel/bxt.m4')
 # PCM5 <----> Volume <----> SSP5(TestPin out/in)
 #
 
+#dnl PCM_CAPABILITIES(name, formats,
+#	rate_min, rate_max,
+#	channels_min, channels_max,
+#	periods_min, periods_max,
+#	period_size_min, period_size_max,
+#	buffer_size_min, buffer_size_max)
+
+#dnl PIPELINE_PCM_DAI_ADD(pipeline,
+#dnl     pipe id, pcm, max channels, format,
+#dnl     frames, deadline, priority, core,
+#dnl     dai type, dai_index, dai format, periods)
+
 # Low Latency playback pipeline 1 on PCM 0 using max 2 channels of s32le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_DAI_ADD(sof/pipe-volume-playback.m4,
@@ -92,6 +104,12 @@ PIPELINE_PCM_DAI_ADD(sof/pipe-volume-capture.m4,
 #
 # DAIs configuration
 #
+
+# dnl DAI_ADD(pipeline,
+# dnl     pipe id, dai type, dai_index, dai_be,
+# dnl     buffer, periods, format,
+# dnl     frames, deadline, priority, core)
+
 
 # playback DAI is SSP0 using 2 periods
 # Buffers use s16le format, with 48 frame per 1000us on core 0 with priority 0
@@ -174,6 +192,13 @@ PCM_DUPLEX_ADD(Port5, 5, PIPELINE_PCM_9, PIPELINE_PCM_10)
 #
 # BE configurations - overrides config in ACPI if present
 #
+
+# dnl DAI_CONFIG(type, idx, link_id, name, ssp_config/dmic_config)
+# dnl SSP_CONFIG(format, mclk, bclk, fsync, tdm, ssp_config_data)
+# dnl SSP_CLOCK(clock, freq, codec_master, polarity) [polarity is optional]
+# dnl SSP_TDM(slots, width, tx_mask, rx_mask)
+# dnl SSP_CONFIG_DATA(type, idx, valid bits, mclk_id) [mclk_id is optional]
+
 DAI_CONFIG(SSP, 0, 0, SSP0-Codec,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 1536000, codec_slave),
