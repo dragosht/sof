@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 	config.out_file = NULL;
 	config.out_fd = NULL;
 	config.in_fd = NULL;
-	config.ldc_file = NULL;
+	config.ldc_file = "/usr/share/sof/sof-apl.ldc";
 	config.ldc_fd = NULL;
 	config.input_std = 0;
 	/* checking fw version is disabled by default */
