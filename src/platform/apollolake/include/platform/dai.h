@@ -47,6 +47,8 @@
 /** \brief Number of 'extended' SSP ports available */
 #define DAI_NUM_SSP_EXT		2
 
+#define DAI_NUM_SSP_VIRTUAL	2
+
 /* HD/A */
 
 /** \brief Number of HD/A Link Outputs */

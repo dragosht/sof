@@ -48,7 +48,7 @@
 #include <config.h>
 
 #if CONFIG_CAVS_SSP
-static struct dai ssp[(DAI_NUM_SSP_BASE + DAI_NUM_SSP_EXT)];
+static struct dai ssp[(DAI_NUM_SSP_BASE + DAI_NUM_SSP_EXT + DAI_NUM_SSP_VIRTUAL)];
 #endif
 
 #if CONFIG_CAVS_DMIC
@@ -127,22 +127,33 @@ static struct dai_type_info dti[] = {
 int dai_init(void)
 {
 	int i;
+<<<<<<< 98d3e1d47794a04e85ce468fba0e3721d348d087
 #if CONFIG_CAVS_SSP
+=======
+	int virtndx = 0;
+
+>>>>>>> drivers: add virtual SSPs 6 and 7 to allow multiple SSP5 hw configurations
 	/* init ssp */
 	for (i = 0; i < ARRAY_SIZE(ssp); i++) {
+
+		virtndx = i;
+
+		if (i > 5)
+			virtndx = 5;
+
 		ssp[i].type = SOF_DAI_INTEL_SSP;
 		ssp[i].index = i;
 		ssp[i].ops = &ssp_ops;
-		ssp[i].plat_data.base = SSP_BASE(i);
-		ssp[i].plat_data.irq = IRQ_EXT_SSPx_LVL5(i, 0);
+		ssp[i].plat_data.base = SSP_BASE(virtndx);
+		ssp[i].plat_data.irq = IRQ_EXT_SSPx_LVL5(virtndx, 0);
 		ssp[i].plat_data.fifo[SOF_IPC_STREAM_PLAYBACK].offset =
-			SSP_BASE(i) + SSDR;
+			SSP_BASE(virtndx) + SSDR;
 		ssp[i].plat_data.fifo[SOF_IPC_STREAM_PLAYBACK].handshake =
-			DMA_HANDSHAKE_SSP0_TX + 2 * i;
+			DMA_HANDSHAKE_SSP0_TX + 2 * virtndx;
 		ssp[i].plat_data.fifo[SOF_IPC_STREAM_CAPTURE].offset =
-			SSP_BASE(i) + SSDR;
+			SSP_BASE(virtndx) + SSDR;
 		ssp[i].plat_data.fifo[SOF_IPC_STREAM_CAPTURE].handshake =
-			DMA_HANDSHAKE_SSP0_RX + 2 * i;
+			DMA_HANDSHAKE_SSP0_RX + 2 * virtndx;
 		/* initialize spin locks early to enable ref counting */
 		spinlock_init(&ssp[i].lock);
 	}

@@ -794,6 +794,12 @@ static void ssp_start(struct dai *dai, int direction)
 {
 	struct ssp_pdata *ssp = dai_get_drvdata(dai);
 
+	/*
+	 * TBD: Is this safe here?
+	 * Is this supposed to be called in the atomic section below?
+	 */
+	ssp_set_config(dai, &ssp->config);
+
 	spin_lock(&dai->lock);
 
 	/* enable port */
