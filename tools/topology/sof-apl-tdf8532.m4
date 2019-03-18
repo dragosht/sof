@@ -170,14 +170,14 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 # playback DAI is SSP5 using 2 periods
 # Buffers use s16le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
-	9, SSP, 5, SSP5-Codec,
+	9, SSP, 5, SSP5-Codec1,
 	PIPELINE_SOURCE_9, 2, s16le,
 	48, 1000, 0, 0)
 
 # capture DAI is SSP5 using 2 periods
 # Buffers use s16le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-capture.m4,
-	10, SSP, 5, SSP5-Codec,
+	10, SSP, 5, SSP5-Codec1,
 	PIPELINE_SINK_10, 2, s16le,
 	48, 1000, 0, 0)
 
@@ -234,7 +234,7 @@ DAI_CONFIG(SSP, 4, 4, SSP4-Codec,
 		      SSP_TDM(2, 32, 15, 15),
 		      SSP_CONFIG_DATA(SSP, 4, 32)))
 
-DAI_CONFIG(SSP, 5, 5, SSP5-Codec,
+DAI_CONFIG(SSP, 5, 5, SSP5-Codec1,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 1536000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
