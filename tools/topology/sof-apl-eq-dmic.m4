@@ -60,9 +60,9 @@ PCM_CAPTURE_ADD(DMIC01, 6, PIPELINE_PCM_1)
 # BE configurations - overrides config in ACPI if present
 #
 
-dnl DAI_CONFIG(type, dai_index, link_id, name, ssp_config/dmic_config)
+dnl DAI_CONFIG(type, idx, link_id, name, hw_conf_id, ssp_config/dmic_config)
 
-DAI_CONFIG(DMIC, 0, 6, NoCodec-6,
+DAI_CONFIG(DMIC, 0, 6, NoCodec-6, 0,
 	   dnl DMIC_CONFIG(driver_version, clk_min, clk_mac, duty_min, duty_max,
 	   dnl		   sample_rate,
 	   dnl		   fifo word length, type, dai_index, pdm controller config)

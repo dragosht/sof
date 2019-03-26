@@ -47,7 +47,7 @@ PCM_PLAYBACK_ADD(Port5, 0, PIPELINE_PCM_1)
 # BE configurations - overrides config in ACPI if present
 #
 
-DAI_CONFIG(SSP, 5, 0, SSP5-Codec,
+DAI_CONFIG(SSP, 5, 0, SSP5-Codec, 0,
 	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		SSP_CLOCK(bclk, 3072000, codec_master),
 		SSP_CLOCK(fsync, 48000, codec_master),

@@ -76,9 +76,9 @@ PCM_CAPTURE_ADD(DMIC16k, 7, PIPELINE_PCM_7)
 # BE configurations - overrides config in ACPI if present
 #
 
-dnl DAI_CONFIG(type, dai_index, link_id, name, ssp_config/dmic_config)
+dnl DAI_CONFIG(type, idx, link_id, name, hw_conf_id, ssp_config/dmic_config)
 
-DAI_CONFIG(DMIC, 0, 6, NoCodec-6,
+DAI_CONFIG(DMIC, 0, 6, NoCodec-6, 0,
 	   dnl DMIC_CONFIG(driver_version, clk_min, clk_mac, duty_min, duty_max,
 	   dnl		   sample_rate, fifo word length, type, dai_index,
 	   dnl             pdm controller config)
@@ -89,7 +89,7 @@ DAI_CONFIG(DMIC, 0, 6, NoCodec-6,
 		dnl STEREO_PDM0 is a pre-defined pdm config for stereo capture
 		PDM_CONFIG(DMIC, 0, DMIC_PDM_CONFIG)))
 
-DAI_CONFIG(DMIC, 1, 7, NoCodec-7,
+DAI_CONFIG(DMIC, 1, 7, NoCodec-7, 1,
 	   dnl DMIC_CONFIG(driver_version, clk_min, clk_mac, duty_min, duty_max,
 	   dnl		   sample_rate, fifo word length, type, dai_index,
 	   dnl             pdm controller config)

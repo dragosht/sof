@@ -105,7 +105,7 @@ PCM_PLAYBACK_ADD(HDMI3, 3, PIPELINE_PCM_4)
 #
 
 #SSP 5 (ID: 0)
-DAI_CONFIG(SSP, 5, 0, SSP5-Codec,
+DAI_CONFIG(SSP, 5, 0, SSP5-Codec, 0,
 	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		SSP_CLOCK(bclk, 3072000, codec_slave),
 		SSP_CLOCK(fsync, 48000, codec_slave),
@@ -113,8 +113,8 @@ DAI_CONFIG(SSP, 5, 0, SSP5-Codec,
 		SSP_CONFIG_DATA(SSP, 5, 24)))
 
 # 3 HDMI/DP outputs (ID: 1,2,3)
-DAI_CONFIG(HDA, 0, 1, iDisp1)
-DAI_CONFIG(HDA, 1, 2, iDisp2)
-DAI_CONFIG(HDA, 2, 3, iDisp3)
+DAI_CONFIG(HDA, 0, 1, iDisp1, 1)
+DAI_CONFIG(HDA, 1, 2, iDisp2, 2)
+DAI_CONFIG(HDA, 2, 3, iDisp3, 3)
 
 DEBUG_END

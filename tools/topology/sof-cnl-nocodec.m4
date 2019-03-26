@@ -142,8 +142,8 @@ PCM_CAPTURE_ADD(DMIC01, 3, PIPELINE_PCM_7)
 # BE configurations - overrides config in ACPI if present
 #
 
-dnl DAI_CONFIG(type, dai_index, link_id, name, ssp_config/dmic_config)
-DAI_CONFIG(SSP, 0, 0, NoCodec-0,
+dnl DAI_CONFIG(type, idx, link_id, name, hw_conf_id, ssp_config/dmic_config)
+DAI_CONFIG(SSP, 0, 0, NoCodec-0, 0,
 	   dnl SSP_CONFIG(format, mclk, bclk, fsync, tdm, ssp_config_data)
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24000000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 4800000, codec_slave),
@@ -152,21 +152,21 @@ DAI_CONFIG(SSP, 0, 0, NoCodec-0,
 		      dnl SSP_CONFIG_DATA(type, dai_index, valid bits, mclk_id)
 		      SSP_CONFIG_DATA(SSP, 0, 24)))
 
-DAI_CONFIG(SSP, 1, 1, NoCodec-1,
+DAI_CONFIG(SSP, 1, 1, NoCodec-1, 1,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24000000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 4800000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(2, 25, 3, 3),
 		      SSP_CONFIG_DATA(SSP, 1, 24)))
 
-DAI_CONFIG(SSP, 2, 2, NoCodec-2,
+DAI_CONFIG(SSP, 2, 2, NoCodec-2, 2,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24000000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 4800000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(2, 25, 3, 3),
 		      SSP_CONFIG_DATA(SSP, 2, 24)))
 
-DAI_CONFIG(DMIC, 0, 3, NoCodec-3,
+DAI_CONFIG(DMIC, 0, 3, NoCodec-3, 3,
 	   DMIC_CONFIG(1, 500000, 4800000, 40, 60, 48000,
 		DMIC_WORD_LENGTH(s32le), DMIC, 0,
 		PDM_CONFIG(DMIC, 0, FOUR_CH_PDM0_PDM1)))

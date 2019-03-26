@@ -143,7 +143,7 @@ PCM_PLAYBACK_ADD(HDMI3, 7, PIPELINE_PCM_7)
 #
 
 #SSP 1 (ID: 0) with 19.2 MHz mclk with MCLK_ID 1 (unused), 1.536 MHz blck
-DAI_CONFIG(SSP, 1, 0, SSP1-Codec,
+DAI_CONFIG(SSP, 1, 0, SSP1-Codec, 0,
 	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 19200000, codec_mclk_in),
 		SSP_CLOCK(bclk, 1536000, codec_slave),
 		SSP_CLOCK(fsync, 48000, codec_slave),
@@ -151,7 +151,7 @@ DAI_CONFIG(SSP, 1, 0, SSP1-Codec,
 		SSP_CONFIG_DATA(SSP, 1, 16, 1)))
 
 #SSP 2 (ID: 1) with 19.2 MHz mclk with MCLK_ID 1, 2.4 MHz bclk
-DAI_CONFIG(SSP, 2, 1, SSP2-Codec,
+DAI_CONFIG(SSP, 2, 1, SSP2-Codec, 1,
 	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 19200000, codec_mclk_in),
 		SSP_CLOCK(bclk, 2400000, codec_slave),
 		SSP_CLOCK(fsync, 48000, codec_slave),
@@ -159,15 +159,15 @@ DAI_CONFIG(SSP, 2, 1, SSP2-Codec,
 		SSP_CONFIG_DATA(SSP, 2, 16, 1)))
 
 # dmic01 (id: 2)
-DAI_CONFIG(DMIC, 0, 2, dmic01,
+DAI_CONFIG(DMIC, 0, 2, dmic01, 2,
 	DMIC_CONFIG(1, 500000, 4800000, 40, 60, 48000,
 		DMIC_WORD_LENGTH(s16le), DMIC, 0,
 		PDM_CONFIG(DMIC, 0, FOUR_CH_PDM0_PDM1)))
 
 # 3 HDMI/DP outputs (ID: 3,4,5)
-DAI_CONFIG(HDA, 3, 3, iDisp1)
-DAI_CONFIG(HDA, 4, 4, iDisp2)
-DAI_CONFIG(HDA, 5, 5, iDisp3)
+DAI_CONFIG(HDA, 3, 3, iDisp1, 3)
+DAI_CONFIG(HDA, 4, 4, iDisp2, 4)
+DAI_CONFIG(HDA, 5, 5, iDisp3, 5)
 
 ## remove warnings with SST hard-coded routes
 

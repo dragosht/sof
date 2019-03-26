@@ -174,42 +174,42 @@ PCM_DUPLEX_ADD(Port5, 5, PIPELINE_PCM_9, PIPELINE_PCM_10)
 #
 # BE configurations - overrides config in ACPI if present
 #
-DAI_CONFIG(SSP, 0, 0, SSP0-Codec,
+DAI_CONFIG(SSP, 0, 0, SSP0-Codec, 0,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 1536000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(2, 16, 3, 3),
 		      SSP_CONFIG_DATA(SSP, 0, 16)))
 
-DAI_CONFIG(SSP, 1, 1, SSP1-Codec,
+DAI_CONFIG(SSP, 1, 1, SSP1-Codec, 1,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 1536000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(2, 16, 3, 3),
 		      SSP_CONFIG_DATA(SSP, 1, 16)))
 
-DAI_CONFIG(SSP, 2, 2, SSP2-Codec,
+DAI_CONFIG(SSP, 2, 2, SSP2-Codec, 2,
 	   SSP_CONFIG(DSP_B, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 12288000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(8, 32, 255, 255),
 		      SSP_CONFIG_DATA(SSP, 2, 32)))
 
-DAI_CONFIG(SSP, 3, 3, SSP3-Codec,
+DAI_CONFIG(SSP, 3, 3, SSP3-Codec, 3,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 1536000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(2, 16, 3, 3),
 		      SSP_CONFIG_DATA(SSP, 3, 16)))
 
-DAI_CONFIG(SSP, 4, 4, SSP4-Codec,
+DAI_CONFIG(SSP, 4, 4, SSP4-Codec, 4,
 	   SSP_CONFIG(DSP_B, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 12288000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),
 		      SSP_TDM(8, 32, 15, 15),
 		      SSP_CONFIG_DATA(SSP, 4, 32)))
 
-DAI_CONFIG(SSP, 5, 5, SSP5-Codec,
+DAI_CONFIG(SSP, 5, 5, SSP5-Codec, 5,
 	   SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
 		      SSP_CLOCK(bclk, 1536000, codec_slave),
 		      SSP_CLOCK(fsync, 48000, codec_slave),

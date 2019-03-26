@@ -126,14 +126,30 @@ define(`D_DAI', `SectionDAI."'N_DAI`" {'
 dnl DAI Config)
 define(`N_DAI_CONFIG', `DAICONFIG.'$1)
 
-dnl DAI_CONFIG(type, idx, link_id, name, ssp_config/dmic_config)
+define(`DAI_HWCONFIG_SECTION',
+`SectionHWConfig."'$1$2`-eval($5+j-6)" {'
+`'
+`	id		"eval($5+j-6)"'
+`'
+`ifelse($1, `SSP', `argn(j,$@)', `}')'
+`ifelse($1, `DMIC', `argn(j,$@)', `')'
+`ifelse(eval(i<=6), `1', `',`define(`i', decr(i))define(`j', incr(j))$0($@)')')
+
+define(`DAI_HWCONFIG_SECTIONS',
+`pushdef(`i', $#)pushdef(`j', `6')DAI_HWCONFIG_SECTION($@)popdef(i)popdef(j)')
+
+
+define(`DAI_HWCONFIG_LIST_LOOP',
+`		"'$1$2`-eval($5+j-6)"'
+`ifelse(eval(i<=6),`1', `',`define(`i', decr(i))define(`j', incr(j))$0($@)')')
+
+define(`DAI_HWCONFIG_LIST',`pushdef(`i', $#)pushdef(`j', `6')DAI_HWCONFIG_LIST_LOOP($@)popdef(i)popdef(j)')
+
+dnl DAI_CONFIG(type, idx, link_id, name, hw_conf_id, ssp_config/dmic_config)
 define(`DAI_CONFIG',
-`SectionHWConfig."'$1$2`" {'
 `'
-`	id		"'$3`"'
+`DAI_HWCONFIG_SECTIONS($@)'
 `'
-`	ifelse($1, `SSP', $5, `}')'
-`ifelse($1, `DMIC', $5, `')'
 `SectionVendorTuples."'N_DAI_CONFIG($1$2)`_tuples_common" {'
 `	tokens "sof_dai_tokens"'
 `	tuples."string" {'
@@ -150,10 +166,10 @@ define(`DAI_CONFIG',
 `SectionBE."'$4`" {'
 `	id "'$3`"'
 `	index "0"'
-`	default_hw_conf_id	"'$3`"'
+`	default_hw_conf_id	"'$5`"'
 `'
 `	hw_configs ['
-`		"'$1$2`"'
+`DAI_HWCONFIG_LIST($@)'
 `	]'
 `	data ['
 `		ifelse($1, `HDA', `', "'N_DAI_CONFIG($1$2)`_data")'

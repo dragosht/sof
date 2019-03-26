@@ -132,12 +132,12 @@ PCM_PLAYBACK_ADD(HDMI3, 5, PIPELINE_PCM_9)
 #
 
 # HDA outputs
-DAI_CONFIG(HDA, 0, 4, Analog Playback and Capture)
-DAI_CONFIG(HDA, 1, 5, Digital Playback and Capture)
+DAI_CONFIG(HDA, 0, 4, Analog Playback and Capture, 0)
+DAI_CONFIG(HDA, 1, 5, Digital Playback and Capture, 1)
 # 3 HDMI/DP outputs (ID: 3,4,5)
-DAI_CONFIG(HDA, 4, 1, iDisp1)
-DAI_CONFIG(HDA, 5, 2, iDisp2)
-DAI_CONFIG(HDA, 6, 3, iDisp3)
+DAI_CONFIG(HDA, 4, 1, iDisp1, 2)
+DAI_CONFIG(HDA, 5, 2, iDisp2, 3)
+DAI_CONFIG(HDA, 6, 3, iDisp3, 4)
 
 
 VIRTUAL_DAPM_ROUTE_IN(codec0_in, HDA, 1, IN, 1)
