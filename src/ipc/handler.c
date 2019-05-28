@@ -548,7 +548,7 @@ static int ipc_dai_config(uint32_t header)
 {
 	struct sof_ipc_dai_config config;
 	struct dai *dai;
-	int ret;
+	int i, ret;
 
 	/* copy message with ABI safe method */
 	IPC_COPY_CMD(config, _ipc->comp_data);
@@ -564,19 +564,33 @@ static int ipc_dai_config(uint32_t header)
 		return -ENODEV;
 	}
 
-	/* configure DAI */
-	ret = dai_set_config(dai,
+	/* add DAI config */
+	ret = dai_add_config(dai,
 			     (struct sof_ipc_dai_config *)_ipc->comp_data);
-	dai_put(dai); /* free ref immediately */
+
 	if (ret < 0) {
-		trace_ipc_error("ipc: dai %d,%d config failed %d",
+		trace_ipc_error("ipc: dai %d,%d add config failed %d",
 				config.type, config.dai_index, ret);
-		return ret;
+		goto out;
 	}
 
+	i = dai->num_configs - 1;
+
+	/* configure DAI */
+	ret = dai_set_config(dai, i);
+	if (ret < 0) {
+		trace_ipc_error("ipc: dai %d,%d set config failed %d",
+				config.type, config.dai_index, ret);
+		goto out;
+	}
+
+	dai_put(dai);
+
 	/* now send params to all DAI components who use that physical DAI */
-	return ipc_comp_dai_config(_ipc,
-				  (struct sof_ipc_dai_config *)_ipc->comp_data);
+	return ipc_comp_dai_config(_ipc, dai->configs[i]);
+out:
+	dai_put(dai);
+	return ret;
 }
 
 static int ipc_glb_dai_message(uint32_t header)
