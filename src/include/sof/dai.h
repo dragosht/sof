@@ -76,6 +76,8 @@
 /** \brief If the device does not exist it will be created */
 #define DAI_CREAT		BIT(0)
 
+#define DAI_CONFIG_MAX		8
+
 struct dai;
 
 /**
@@ -129,6 +131,9 @@ struct dai {
 	int sref;		/**< simple ref counter, guarded by lock */
 	struct dai_plat_data plat_data;
 	const struct dai_driver *drv;
+	struct sof_ipc_dai_config *configs[DAI_CONFIG_MAX];
+	int num_configs;
+	int cur_config;
 	void *private;
 };
 
@@ -179,13 +184,14 @@ void dai_put(struct dai *dai);
 	dai->plat_data.fifo[direction].offset
 
 /**
+ * \brief Digital Audio interface configuration
+ */
+int dai_add_config(struct dai *dai, struct sof_ipc_dai_config *config);
+
+/**
  * \brief Digital Audio interface formatting
  */
-static inline int dai_set_config(struct dai *dai,
-				 struct sof_ipc_dai_config *config)
-{
-	return dai->drv->ops.set_config(dai, config);
-}
+int dai_set_config(struct dai *dai, int index);
 
 /**
  * \brief Digital Audio interface trigger
