@@ -439,6 +439,83 @@ static int dai_params(struct comp_dev *dev)
 
 }
 
+static int dai_cmd_get_value(struct comp_dev *dev,
+			     struct sof_ipc_ctrl_data *cdata, int max_size)
+{
+	//struct comp_data *cd = comp_get_drvdata(dev);
+	struct dai_data *dd = comp_get_drvdata(dev);
+
+	int j;
+
+	trace_dai("dai_cmd_get_value()");
+
+	if (cdata->cmd == SOF_CTRL_CMD_ENUM) {
+		trace_dai("dai_cmd_get_value() num elems: %d",
+			  cdata->num_elems);
+
+		for (j = 0; j < cdata->num_elems; j++) {
+			cdata->chanv[j].channel = j;
+			cdata->chanv[j].value = dd->dai->cur_config;
+		}
+	}
+	return 0;
+}
+
+static int dai_cmd_set_value(struct comp_dev *dev,
+			     struct sof_ipc_ctrl_data *cdata)
+{
+	//struct comp_data *cd = comp_get_drvdata(dev);
+	//struct dai_data *dd = comp_get_drvdata(dev);
+	uint32_t ch, val;
+	int j;
+
+	trace_dai("dai_cmd_set_value()");
+
+	if (cdata->cmd == SOF_CTRL_CMD_ENUM) {
+		trace_dai("dai_cmd_set_value() num elems: %d",
+			  cdata->num_elems);
+
+		for (j = 0; j < cdata->num_elems; j++) {
+			ch = cdata->chanv[j].channel;
+			val = cdata->chanv[j].value;
+
+			trace_dai("dai_cmd_set_value() ch: %u value: %u",
+				  ch, val);
+
+			if (ch >= PLATFORM_MAX_CHANNELS) {
+				trace_dai_error("tone_cmd_set_value() error: "
+						"ch >= PLATFORM_MAX_CHANNELS");
+				return -EINVAL;
+			}
+
+			//TODO: this should now set the current hw_config!
+		}
+	}
+
+	return 0;
+}
+
+static int dai_cmd(struct comp_dev *dev, int cmd, void *data,
+		    int max_data_size)
+{
+	struct sof_ipc_ctrl_data *cdata = data;
+	int ret = 0;
+
+	trace_dai("dai_cmd() cmd = %d\n", cmd);
+
+	/* TODO: Consider trying GET_DATA/SET_DATA commands instead */
+	switch (cmd) {
+	case COMP_CMD_SET_VALUE:
+		ret = dai_cmd_set_value(dev, cdata);
+		break;
+	case COMP_CMD_GET_VALUE:
+		ret = dai_cmd_get_value(dev, cdata, max_data_size);
+		break;
+	}
+
+	return ret;
+}
+
 static int dai_prepare(struct comp_dev *dev)
 {
 	struct dai_data *dd = comp_get_drvdata(dev);
@@ -793,6 +870,7 @@ static struct comp_driver comp_dai = {
 		.new		= dai_new,
 		.free		= dai_free,
 		.params		= dai_params,
+		.cmd		= dai_cmd,
 		.trigger	= dai_comp_trigger,
 		.copy		= dai_copy,
 		.prepare	= dai_prepare,
