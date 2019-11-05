@@ -9,6 +9,7 @@ if(NOT BUILD_LIBRARY)
 		buffer.c
 		channel_map.c
 	)
+	add_subdirectory(amp)
 	if(CONFIG_COMP_VOLUME)
 		add_subdirectory(volume)
 	endif()
